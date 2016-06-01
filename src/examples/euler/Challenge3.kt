@@ -1,5 +1,6 @@
 package examples.euler
 
+import kotlin.system.measureNanoTime
 import kotlin.system.measureTimeMillis
 
 /**
@@ -13,7 +14,7 @@ fun main(args: Array<String>) {
     val largeNum: Long = 600851475143L
     var x: Long = largeNum
     var factor = 2
-    val benchMark = measureTimeMillis {
+    val benchMark = measureNanoTime {
         while (factor < x) {
             if (x % factor == 0L) {
                 x /= factor
@@ -23,5 +24,5 @@ fun main(args: Array<String>) {
         }
         println("The largest prime factor is $factor")
     }
-    print("Process completed in $benchMark milliseconds")
+    print("Process completed in $benchMark nanoseconds")
 }
