@@ -19,30 +19,35 @@ const internal val MAXC9 = 1000
 
 fun main(args: Array<String>) {
     val c9 = Challenge9();
-    var m = 3;
-    var n = 4;
-    var sum = 0;
     var benchMark = measureNanoTime {
-        while (n < MAXC9 && sum != 1000) {
-            while ( m < n && sum != 1000) {
-                val a = c9.computeA(n, m);
-                val b = c9.computeB(n, m);
-                val c = c9.computeC(n, m);
-                sum = a + b + c;
-                if (sum == MAXC9) {
-                    println("The answer is " + (a * b * c));
-                }
-                m++;
-            }
-            m = 3;
-            n++;
-        }
+        println("The answer is "+c9.solve(MAXC9));
     }
     print("Process completed in $benchMark nanoseconds")
 }
 
 class Challenge9 {
     //Triples computed by a = n^2 - m^2, b = 2nm, c = n^2 + m^2 where n>m
+
+    fun solve(sum: Int): Int {
+        var m = 3;
+        var n = 4;
+        var a = 0;
+        var b = 0;
+        var c = 0;
+        var sumCheck = 0;
+        while (n < sum && sumCheck != sum) {
+            while ( m < n && sumCheck != sum) {
+                a = computeA(n, m);
+                b = computeB(n, m);
+                c = computeC(n, m);
+                sumCheck = a + b + c;
+                m++;
+            }
+            m = 3;
+            n++;
+        }
+        return (a * b * c);
+    }
 
     fun computeA(n: Int, m: Int): Int {
         return (Math.pow(n.toDouble(), 2.toDouble()) - Math.pow(m.toDouble(), 2.toDouble())).toInt();
