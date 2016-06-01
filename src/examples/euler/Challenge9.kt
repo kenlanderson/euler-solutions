@@ -1,0 +1,59 @@
+package examples.euler
+
+import kotlin.system.measureNanoTime
+import kotlin.system.measureTimeMillis
+
+/**
+ * A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
+ *
+ * a2 + b2 = c2
+ * For example, 32 + 42 = 9 + 16 = 25 = 52.
+ *
+ * There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+ * Find the product abc.
+ *
+ * Created by kenlanderson on 6/1/16.
+ */
+
+const internal val MAXC9 = 1000
+
+fun main(args: Array<String>) {
+    val c9 = Challenge9();
+    var m = 3;
+    var n = 4;
+    var sum = 0;
+    var benchMark = measureNanoTime {
+        while (n < MAXC9 && sum != 1000) {
+            while ( m < n && sum != 1000) {
+                val a = c9.computeA(n, m);
+                val b = c9.computeB(n, m);
+                val c = c9.computeC(n, m);
+                sum = a + b + c;
+                if (sum == MAXC9) {
+                    println("The answer is " + (a * b * c));
+                }
+                m++;
+            }
+            m = 3;
+            n++;
+        }
+    }
+    print("Process completed in $benchMark nanoseconds")
+}
+
+class Challenge9 {
+    //Triples computed by a = n^2 - m^2, b = 2nm, c = n^2 + m^2 where n>m
+
+    fun computeA(n: Int, m: Int): Int {
+        return (Math.pow(n.toDouble(), 2.toDouble()) - Math.pow(m.toDouble(), 2.toDouble())).toInt();
+    }
+
+    fun computeB(n: Int, m: Int): Int {
+        return 2 * n * m;
+    }
+
+    fun computeC(n: Int, m: Int): Int {
+        return (Math.pow(n.toDouble(), 2.toDouble()) + Math.pow(m.toDouble(), 2.toDouble())).toInt();
+    }
+
+}
