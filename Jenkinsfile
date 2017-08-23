@@ -8,10 +8,4 @@ echo "stage 1"'''
       }
     }
   }
-  environment {
-    http_proxy = ''
-    HTTP_PROXY = ''
-    https_proxy = ''
-    HTTPS_PROXY = ''
-  }
 }
